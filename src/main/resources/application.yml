@@ -1,0 +1,17 @@
+logging:
+  java:
+    sql: DEBUG
+    Connection: DEBUG
+    Statement: DEBUG
+    PreparedStatement: DEBUG
+    ResultSet: DEBUG
+  level:
+    org:
+      springframework:
+        jdbc: DEBUG
+      hibernate:
+        sql: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
