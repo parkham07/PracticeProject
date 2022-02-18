@@ -6,7 +6,9 @@ import park.practiceproject.common.Utils;
 import park.practiceproject.entity.User;
 import park.practiceproject.repository.UserRepository;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RequiredArgsConstructor
 @Service
@@ -42,23 +44,13 @@ public class UserService {
 		return userRepository.findAll(userRepository.searchId(param, true));
 	}
 
-	private User searchIdEquals(String id, boolean isLike) {
-		Map<String, String> param = new HashMap<>();
-
-		param.put("id", id);
-
-		return userRepository.findOne(userRepository.searchId(param, isLike)).orElse(User.builder().build());
-	}
-
 	public User addRandomUser() {
-		Random rnd = new Random();
-
 		return userRepository.save(User.builder()
-										.id("test" + rnd.nextInt())
-										.password(Utils.makeMD5("pass" + rnd.nextInt()))
+										.id("test" + Utils.getInstance().rnd().nextInt())
+										.password(Utils.getInstance().makeMD5("pass" + Utils.getInstance().rnd().nextInt()))
 										.name("name" + (userRepository.count() + 1))
 										.state(0)
-										.authority((rnd.nextInt() % 2 == 0)? User.Authority.ROLE_ADMIN: User.Authority.ROLE_USER)
+										.authority((Utils.getInstance().rnd().nextInt() % 2 == 0)? User.Authority.ROLE_ADMIN: User.Authority.ROLE_USER)
 										.build());
 	}
 }
